@@ -74,11 +74,17 @@ class App extends Component {
   parseOperator(input) {
     switch (input) {
       case "AC":
-        console.log("AC");
         return {
           result: "0",
-          temp: null,
-          Compute: null
+          temp: null
+        };
+      case "+/-":
+        return {
+          result: `${-this.state.result}`
+        };
+      case "%":
+        return {
+          result: `${this.state.result / 100.0}`
         };
     }
   }
