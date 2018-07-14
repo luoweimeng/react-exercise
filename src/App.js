@@ -28,20 +28,53 @@ class App extends Component {
   parseCompute(compute) {
     let { result, temp } = this.state;
     let newResult;
-    if (compute === '+')
-      newResult = `${Number(temp) - Number(result)}`;
-    if (compute === '=')
-    
-    return {
-      result: newResult,
-      temp: temp,
-      compute: compute
-    };
+    newResult = this.computeResult();
+
+    if (compute === "=") {
+      return {
+        result: newResult,
+        temp: null,
+        compute: compute,
+        reset: true
+      };
+    } else {
+      if (temp === null) {
+        return {
+          result: result,
+          temp: result,
+          compute: compute,
+          reset: true
+        };
+      } else {
+        return {
+          result: newResult,
+          temp: newResult,
+          compute: compute,
+          reset: true
+        };
+      }
+    }
+  }
+
+  computeResult() {
+    let { result, temp, compute } = this.state;
+    if (temp === null) return;
+    switch (compute) {
+      case "+":
+        return `${Number(temp) + Number(result)}`;
+      case "-":
+        return `${Number(temp) - Number(result)}`;
+      case "×":
+        return `${Number(temp) * Number(result)}`;
+      case "÷":
+        return `${Number(temp) / Number(result)}`;
+    }
   }
 
   parseOperator(input) {
     switch (input) {
       case "AC":
+        console.log("AC");
         return {
           result: "0",
           temp: null,
